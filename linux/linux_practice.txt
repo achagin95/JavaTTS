@@ -1,0 +1,279 @@
+1. В своём домашнем каталоге создать подкаталог linux_ex и зайти в него.
+
+$mkdir linux_ex
+$ls
+$cd linux_ex
+
+2. Создать файл hello.txt  с текстом “Hello world”.
+
+$touch hello.txt
+$ls
+$echo "Hello world">hello.txt
+$cat hello.txt
+
+Добавить в этот файл (разделяя пустыми строками)
+свои имя и фамилию,
+текущую дату
+имя пользователя
+
+===================================используйте echo и необходимые команды для того, чтобы узнать дату и имя пользователя
+=echo 'Andrey Chagin' >> hello.txt
+=date >> hello.txt
+=whoani >> hello.txt
+$nano hello.txt
+после редактирований ^o (save), ^x(exit)
+=теперь уже для проверки
+
+содержимое домашнего каталога (нерекурсивно, список имен файлов, включая скрытые)
+
+$pwd (убедился, что я нахожусь в папке linux_ex
+=$ls /home/zergi4/ -a >> hello.txt
+===================================нужно научиться делать это с помощью команд линукса. ctrl+C-ctrl+V не подойдет
+
+
+содержимое корневого каталога (нерекурсивно)
+
+=$ls / -a >> hello.txt
+===================================нужно научиться делать это с помощью команд линукса. ctrl+C-ctrl+V не подойдет
+
+содержимое каталога /etc
+
+$echo "/etc" >>hello.txt
+$ls /etc >> hello.txt
+
+только файлы в каталоге /etc
+
+$echo "/etc only type f">>hello.txt
+===================================зачем нужно -maxdepth 1?
+=убрал
+$find /etc -type f >> hello.txt
+
+только подкаталоги в каталоге /etc (нерекурсивно)
+
+echo "only pacages /etc">>hello.txt
+find /etc -type d>>hello.txt
+
+содержимое файла /etc/passwd
+echo "/etc/passwd">>hello.txt
+cat /etc/passwd>>hello.txt
+
+первый столбец файла /etc/passwd (список юзеров)
+echo "/etc/passwd (first column)">>hello.txt
+cat /etc/passwd | awk -F ":" '{ print $1 }' >> hello.txt
+cat /etc/passwd | grep -o '^[^:]*' >> hello.txt (без awk)
+
+содержимое файла /etc/group
+echo "/etc/group">>hello.txt
+cat /etc/group>>hello.txt
+
+первый столбец файла /etc/group (список групп)
+echo "/etc/group (first column)">>hello.txt
+cat /etc/group | awk -F ":" '{ print $1 }' >> hello.txt
+cat /etc/group | grep -o '^[^:]*' >> hello.txt (без awk)
+
+первую и последнюю строки файла /etc/group
+cat /etc/group | head -n 1 >>hello.txt
+cat /etc/group | tail -n 1 >> hello.txt
+
+Вывести hello.txt с прокруткой
+less hello.txt
+
+
+Разбить hello.txt на файлы размером 1к, затем собрать обратно.
+split -b 1k hello.txt
+ls -lh
+cat *x>restored-hello.txt
+md5sum *.txt
+
+Заменить в hello.txt ‘/’ на ‘\’
+cat hello.txt |tr '/' '\\' >hello2.txt
+cat hello2.txt>hello.txt
+
+Скопировать /var/log в текущий каталог (кроме файлов без доступа) с сохранением времени модификации. В текущем каталоге должен появиться ./var/log
+===================================не вижу, чтобы сохранялось время модификации
+=cp -r -p /var/log /home/zergi4/linux_ex/var/log
+cp -r /var/log /home/zergi4/linux_ex/var/log
+
+Для полученной копии
+	вывести объем занимаемого места
+===================================используйте команду du
+=sudo du /var/log
+	ls-lh /var/log/
+
+	вывести все файлы, начинающиеся на ‘a’ (не каталоги)
+	sudo find /var/log/ -type f -name "a*"
+	удалить все файлы, начинающиеся на ‘a’ (не каталоги). Как убедиться, что выполнено правильно?
+    sudo find /var/log -type f -name "a*" -delete
+    для проверки sudo find /var/log/ -type f -name "a*"
+    как вариант: sudo find /var/log/ -type f и убеиться, что нет файлов начинающихся на А
+
+	вывести все файлы со временем последней модификации больше 5 дней;
+	find /var/log -type f -mtime +5
+	вывести все файлы со временем последней модификации меньше 5 дней;
+	find /var/log -type f -mtime -5
+
+    создать каталог archive и переместить туда файлы (не каталоги) со временем	 модификации больше 5 дней.
+    mkdir archive
+    ls
+    sudo find /var/log -type f -mtime +5 -exec mv -t ./archive/ {} \+
+
+    * переместить файлы как в прошлом задании, но сохраняя структуру каталогов.
+    sudo find /var/log -mtime +5 -exec mv -t ./archive/ {} \+
+
+Найти все файлы (рекурсивно) с расширением jar в каталогах /opt и /usr.
+cd ..
+cd ..
+cd ..
+find ./opt ./usr -type f -name "*.jar"
+// почему-то не сработала команда из папки /home/zergi4/linux_ex команда
+===================================точки перед каталогами не нужны, они обозначают текущую директорию попробуйте просто find /opt /usr -name "*.jar"
+=find //opt //usr -name "*.jar"
+// find .//opt .//usr -name "*.jar"
+
+Найти все каталоги, содержащие файлы с расширением jar в каталогах /opt и /usr, вывести по одному разу.
+===================================не вижу выполнения условия, что файлы должны быть выведены по одному раз
+=find //opt //usr -type f -name "*.jar" | uniq
+find .//opt .//usr -type f -name "*.jar"
+
+Найти все файлы с расширением java, созданные месяц назад плюс-минус одна неделя.
+touch -t -08140000 newerFile
+touch -t 08010000 olderFile
+sudo find -newer olderFile ! - newer newerFile -type f - name "*.java"
+
+В двух заданных каталогах должен быть одинаковый набор файлов. Нужно в этом убедиться, т.е. проверить, что совпадают множества файлов, имена и содержимое.
+cd ./var && ls > list1 && cd .. && cd ./archive && ls > list2 && cd ..
+md5sum ./var/list1 ./archive/list2
+
+Создать с помощью touch несколько файлов 1.MP3, 2.MP3… Написать команду для группового переименования расширений в нижний регистр, т.е. должно получиться 1.mp3, 2.mp3...
+===================================можно использовать touch {1..9}.MP3 вместо for
+=touch {1..9}.MP3
+for i in {10..}; do touch $1.MP3; done
+sudo apt install rename
+rename 's/\.MP3/\.mp3/' *
+
+* Создать текстовый файл с каким либо русским текстом. Написать команду для его транслитерации.
+echo "Русский текст который нужно затранслитить" > trans.txt
+sudo apt install yudit
+cat trans.txt | uniconv -encode Russian-Translit
+
+Установить вручную (без apt-get) java и maven последней версии (можно взять OpenJDK https://jdk.java.net/14/ скачать с помощью wget.  Если не работает буфер обмена, можно создать короткую ссылку, например, https://clck.ru/Qg6LM ).
+Добавить путь запуска в переменную PATH, создать переменные JAVA_HOME и M2_HOME.
+
+создал короткую ссылку через клик
+cd .. & cd .. cd /opt && mkdir java && cd /java
+ls
+sudo wget https://clck.ru/Qg6LM
+sudo tar -xzvf Qg6LM
+su -
+nano /etc/profile
+в конце файла установить переменные
+exit
+java -version
+
+cd /opt && mkdir maven && cd maven && sudo wget https://clck.ru/Qkmz4
+ls
+sudo tar -xzvf Qkmz4
+ls
+sudo mv apache-maven-3.6.3 maven
+su -
+nano /etc/profile.d/maven.sh
+устанавливаем переменные
+reboot
+mvn -version
+
+ Выполнить сборку java проекта (создать простой проект типа HelloWorld или загрузить из заочной школы).
+===================================для сборки используйте mvn package
+=mvn package (просто запустил свой проект, чтоб не париться)
+ javac helloworld.java
+
+Проанализировать загрузку процессора, объем памяти. Вывести информацию по использованию места в файловой системе.
+top
+free
+
+Найти самые большие каталоги (рекурсивно до уровня 2).
+sudo du -a / -d 2 | sort -n -r | head -n 10
+
+Users, groups, access rights
+
+Создать двух юзеров (напр., ivanov, petrov), создать каталог /shared и дать полный доступ этим двум юзерам. У остальных не должно быть доступа даже на чтение.
+cd linux_ex && pwd
+sudo useradd ivanov && sudo useradd petrov
+mkdir sherad && ls -l
+sudo groupadd lesson1
+sudo usermod -aG lesson1 ivanov && groups ivanov
+sudo usermod -aG lesson1 petrov && groups petrov
+sudo chgrp lesson1 ./sherad
+ls -l | grep sherad
+chmod 070 .sherad
+ls -l | grep sherad
+
+Named pipe (именованный канал)
+
+Установить MySQL и создать базу ttschool, заполнить данными. Выполнить дамп базы с архивированием в файл посредством named pipe, затем восстановить из файла также посредством named pipe.
+pwd
+cd Загрузки
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
+ls
+sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
+sudo apt update
+sudo apt install mysql-server
+sudo systemctl status mysql
+mysql -u root -p
+CREATE USER 'test'@'%' IDENTIFIED BY 'test';
+SELECT User,Host FROM mysql.user;
+CREATE DATABASE ttschool;
+GRANT ALL PRIVILEGES ON ttschool.* TO 'test'@'%';
+/q
+mysql -u test -p
+SHOW DATABASES;
+USE trainee;
+CREATE TABLE `trainee` (
+`ID` int(11) NOT NULL auto_inctement,
+`firstname` varchar(45) NOT NULL default '',
+`lastname` varchar(45) NOT NULL default '',
+`raiting` int(11) not null default '0',
+PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+SHOW TABLES;
+DESCRIBE trainee;
+INSERT INTO trainee VALUES (null, 'ivanov','ivan','5');
+select * from trainee;
+\q
+===================================не вижу использования pipe. команда mkfifo
+mysqldump -u root -p --databases ttschool > ttschool.dumptest.sql
+*почему-то от пользователя тест не давало сделать дамп,
+*мол нет прав, хотя даны все привелегии
+ls
+mysql -u test -p ttschool < ttschool.dumptest.sql
+mysql - test -p
+USE ttschool;
+SELECT * FROM trainee;
+
+=*
+mkfifo mysql_pipe
+gzip -9 -c < mysql_pipe > ttschool_dump.gz &
+mysqldump -u root -p ttschool > mysql_pipe
+rm mysql_pipe
+gunzip ttscholl_dump.gz
+mysql -u test -p ttschool < ttschool_dump
+DROP DATABASE ttschool;
+
+*заного создал базу, т.к. дропнул базу вместо удаления содержимого
+SHOW DATABASES;
+CREATE DATABASE ttschool;
+USE ttschool;
+CREATE TABLE `trainee` (
+`ID` int(11) NOT NULL auto_increment,
+`firstname` varchar(45) NOT NULL default '',
+`lastname` varchar(45) NOT NULL default '',
+`raiting` int(11) not null default '0',
+PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+mkfifo pipe2
+cat ttschool_dump.gz > mypipe & gunzip <mypipe | pv | mysql -u root -p ttschool
+*проверил, все на месте
+
+
+
+

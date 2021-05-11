@@ -1,0 +1,433 @@
+
+interface: any
+filter: ( port 8081 ) and (ip || ip6)
+####
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #4
+GET /index.html HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Connection: keep-alive.
+Upgrade-Insecure-Requests: 1.
+If-Modified-Since: Wed, 23 Sep 2020 04:03:01 GMT.
+If-None-Match: W/"5f6ac8f5-1424".
+Cache-Control: max-age=0.
+.
+
+##
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #6
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 04:03:01 GMT.
+Connection: keep-alive.
+ETag: "5f6ac8f5-1424".
+.
+
+##
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #8
+GET /css/style.css HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: text/css,*/*;q=0.1.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/index.html.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-db1".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #9
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-db1".
+.
+
+##
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #11
+GET /images/p1.jpg HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/index.html.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-acc7".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #12
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-acc7".
+.
+
+#
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #13
+GET /images/ms.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/index.html.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-103".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #14
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-103".
+.
+
+#
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #15
+GET /images/mr.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/index.html.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-22f".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #16
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-22f".
+.
+
+#
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #17
+GET /images/spacer.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/index.html.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-2b".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #18
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-2b".
+.
+
+#
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #19
+GET /images/shopping-cart-btn1.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/index.html.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-43a".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #20
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-43a".
+.
+
+#
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #21
+GET /images/shopping-cart-btn2.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/index.html.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-43e".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #22
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-43e".
+.
+
+#
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #23
+GET /images/rmenu-p2.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/index.html.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-272".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #24
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-272".
+.
+
+####
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #28
+GET /images/rmenu-bottom.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/index.html.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-96".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #29
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-96".
+.
+
+#
+T 192.168.56.106:45628 -> 192.168.56.107:8081 [AP] #30
+GET /images/base-bg.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/css/style.css.
+Connection: keep-alive.
+Cache-Control: max-age=0.
+.
+
+##
+T 192.168.56.107:8081 -> 192.168.56.106:45628 [AP] #32
+HTTP/1.1 200 OK.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Content-Type: image/gif.
+Content-Length: 662.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-296".
+Accept-Ranges: bytes.
+.
+GIF89a.......................................................................................................................................................................................................................................................................................................................................................................................................!.......,...............{.{.P...67.rr......\==32.<<1+1Y.Y..e$$kkm).jiq...00AA..yyBBuu4>>"...ss:://K|--f..wJJ9}`&&LLCC^h55@@..nn((O#.
+
+c.....pp?xxEE.....B0C.?..RX..K.
+Z".Pa.D.6l<x`....=.Br.B2...(........Hb..)f...7.8p..J..S.X...(.*X.(e..H....H............L.#.....6..;
+##
+T 192.168.56.106:45628 -> 192.168.56.107:8081 [AP] #34
+GET /images/menu-bg.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/css/style.css.
+Connection: keep-alive.
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45628 [AP] #35
+HTTP/1.1 200 OK.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Content-Type: image/gif.
+Content-Length: 159.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-9f".
+Accept-Ranges: bytes.
+.
+GIF89a.."....s..r..q....*t..s....3}......."w.......\.....v..t..O..:..'..-u....j..cy....Hp....U..B..{..'..p...!.......,......"......H..9^e1..m.1u.r\
+E.@...A&..;
+#
+T 192.168.56.106:45626 -> 192.168.56.107:8081 [AP] #36
+GET /images/shopping-cart-bg.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/css/style.css.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-b44".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45626 [AP] #37
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-b44".
+.
+
+#
+T 192.168.56.106:45628 -> 192.168.56.107:8081 [AP] #38
+GET /images/rmenu-titlebg.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/css/style.css.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-973".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45628 [AP] #39
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-973".
+.
+
+#
+T 192.168.56.106:45628 -> 192.168.56.107:8081 [AP] #40
+GET /images/rmenu-bg.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/css/style.css.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-41".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45628 [AP] #41
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-41".
+.
+
+#
+T 192.168.56.106:45628 -> 192.168.56.107:8081 [AP] #42
+GET /images/rmenu-bullet.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/css/style.css.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-33".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45628 [AP] #43
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-33".
+.
+
+#
+T 192.168.56.106:45628 -> 192.168.56.107:8081 [AP] #44
+GET /images/botbg.gif HTTP/1.1.
+Host: 192.168.56.107:8081.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: image/webp,*/*.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Referer: http://192.168.56.107:8081/css/style.css.
+Connection: keep-alive.
+If-Modified-Since: Wed, 23 Sep 2020 03:28:00 GMT.
+If-None-Match: "5f6ac0c0-117".
+Cache-Control: max-age=0.
+.
+
+#
+T 192.168.56.107:8081 -> 192.168.56.106:45628 [AP] #45
+HTTP/1.1 304 Not Modified.
+Server: nginx/1.14.2.
+Date: Wed, 23 Sep 2020 09:04:53 GMT.
+Last-Modified: Wed, 23 Sep 2020 03:28:00 GMT.
+Connection: keep-alive.
+ETag: "5f6ac0c0-117".
+.

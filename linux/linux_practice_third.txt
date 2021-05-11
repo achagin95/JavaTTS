@@ -1,0 +1,172 @@
+Task1
+Сгенерировать набор файлов вида
+YYYY-mm-dd.csv
+по каждому дню за год с содержимым такого вида (числовые поля заполнить случайными  значениями):
+cite        ; country ; date       ; views ; clicks
+www.abc.com ; USA     ; 2017-01-01 ; 1000  ; 3
+www.cba.com ; France  ; 2017-01-01 ; 750   ; 0
+
+#!/bin/bash
+mkdir /home/zergi4/bashLesson/task1
+for (( a=0; a<366; a++ ))
+do
+echo "cite      ; country; date         ; vievs ; clicks"  > /home/zergi4/bashL$
+string1="www.abc.com; USA ; "
+string11="www.cba.com; USA ; "
+string2=`date +%Y-%m-%d`
+string3="   ; "
+string4=${RANDOM}
+string44=${RANDOM}
+string5=" ;  "
+string6=$((RANDOM%25+6))
+string66=$((TANDOM%30+2))
+echo "$string1$string2$string3$string4$string5$string6" >> /home/zergi4/bashLes$
+echo "$string11$string2$string3$string44$string5$string66" >> /home/zergi4/bash$
+done
+
+*позже понял, что имелось ввиду в подсказке, поправил ниже
+*сверху оставил изначальный вариант, т.к. от него играет 2 задание
+*третье задание сделано по уже исправленному первому
+===============исправление
+dateName="2020-01-01"
+filename=$(date +%Y-%m-%d -d "$dateName + $a days")
+#!/bin/bash
+mkdir /home/zergi4/bashLesson/task1
+for (( a=0; a<366; a++ ))
+ do
+  dateForName="2020-01-01"
+  filename=$(date +%Y-%m-%d -d "$dateForName + $a days")
+  echo "cite      ; country; date         ; vievs ; clicks"  > /home/zergi4/bashLesson/task1/"$filename"
+  stringCite1="www.abc.com; USA ; "
+  stringCite2="www.cba.com; USA ; "
+  stringDate=`date +%Y-%m-%d`
+  string3="   ; "
+  stringViews1=${RANDOM}
+  stringViews2=${RANDOM}
+  stringSpace=" ;  "
+  stringClicks1=$((RANDOM%25+6))
+  stringClicks2=$((TANDOM%30+2))
+  echo "$stringCite1$stringDate$string3$stringViews1$stringSpace$stringClicks1" >> /home/zergi4/bashLesson/task1/"$filename"
+  echo "$stringCite2$stringDate$string3$stringViews2$stringSpace$stringClicks2" >> /home/zergi4/bashLesson/task1/"$filename"
+ done
+
+
+исправление===================
+
+
+В условиях предыдущей задачи
+Проверить, что все файлы за год присутствуют и нет лишних.
+Во всех исходных файлах переставить дату на первое место и привести к виду dd/mm/YYYY:
+date       ; cite        ; country ; views ; clicks
+01/01/2017 ; www.abc.com ; usa     ; 1000  ; 3
+01/01/2017 ; www.cba.com ; France  ; 750   ; 0
+
+#!/bin/bash
+export a=`find /home/zergi4/bashLesson/task1/ -type f | wc -l`
+
+if [ "$a" -ne 366 ]; then
+  echo "False, there isn't 366 files"
+else
+  for ((i=o; i<a; i++)); do
+    export path="/home/zergi4/bashLesson/task1/2020-01-01 + ${i} day"
+    export line=`wc -l /home/zergi4/bashLesson/task1/2020-01-01\ +\ ${i}\ day`
+    export stringsCount=`echo "$line" | awk '{print $1}'`
+
+     for ((j=0; j<(($stringsCount)); j++)); do
+
+        let "jj = j + 1"
+        string1=`cat /home/zergi4/bashLesson/task1/2020-01-01\ +\ ${i}\ day | head -n $jj | tail -n 1`
+        IFS=';' read -r -a array <<< "$string1"
+        if [ $j -eq 1 -o $j -eq 2 ]; then
+          IFS='-' read -r -a arrayDate <<< "${array[2]}"
+          array[2]="${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}"
+        fi
+
+        if [ $j -eq 0 ]; then
+           echo "${array[2]};${array[0]};${array[1]};${array[3]};${array[4]}" > tmp.txt
+           else echo "${array[2]};${array[0]};${array[1]};${array[3]};${array[4]}" >> tmp.txt
+        fi
+     done
+    cat tmp.txt > /home/zergi4/bashLesson/task1/2020-01-01\ +\ ${i}\ day
+  done
+ rm tmp.txt
+fi
+
+Task3
+Сформировать набор файлов monday.csv, tuesday.csv и т.д. куда вывести содержимое всех исходных файлов отдельно по каждому дню недели. Строку заголовка вывести один раз. Исходные файлы удалить.
+
+========исправление
+#!/bin/bash
+export aa=7
+mkdir /home/zergi4/bashLesson/task3/
+for ((i=0; i<aa; i++)); do
+        export datename1="2020-01-06"
+        export filename1=$(date -d "$datename1 + $i days" +%A)
+        export string="date       ; cite        ; country ; views ; clicks"
+        echo "$string" > /home/zergi4/bashLesson/task3/"$filename1.csv"
+done
+
+export a=`find /home/zergi4/bashLesson/task1/ -type f | wc -l`
+echo "$a"
+
+for ((ii=0; ii<a; ii++)); do
+
+        dateName="2020-01-01"
+        #дата для файлов
+        export filename=$(date +%Y-%m-%d -d "$dateName + $ii days")
+        #имя файла в папке таск1
+        export filenameDay=$(date -d "$filename" +%A)
+        #имя файла в папке таск3
+
+        export line=`wc -l /home/zergi4/bashLesson/task1/"$filename"`
+        #export stringsCount1="${line:0:1}"
+        export stringsCount1=`echo "$line" | awk '{print $1}'`
+        export stringsCount=$(($stringsCount1+1))
+
+        for ((j=2; j<(($stringsCount)); j++)); do
+            export string1=`cat /home/zergi4/bashLesson/task1/"$filename" | head -n $j | tail -n 1`
+            echo "$string1" >> /home/zergi4/bashLesson/task3/"$filenameDay.csv"
+        done
+
+rm /home/zergi4/bashLesson/task1/"$filename"
+done
+
+исправление=============
+
+
+Task4
+Вывести в отдельный файл содержимое всех файлов *.java из своего репозитория (локальный проект заочной школы или любой другой, где есть java классы), в которых встречается ArrayList.
+Один из способов реализации: цикл с grep в условии.
+
+
+#!/bin/bash
+mkdir /home/zergi4/bashLesson/task4/
+find /home/zergi4/ -name "*.java" -type f > /home/zergi4/bashLesson/task4/list.txt
+
+export line=`wc -l /home/zergi4/bashLesson/task4/list.txt`
+export stringsCount1=`echo "$line" | awk '{print $1}'`
+echo "String count: $stringsCount1"
+
+for ((i=1; i<=$stringsCount1; i++)); do
+    export path=`cat /home/zergi4/bashLesson/task4/test.txt | head -n $i |tail -n 1`
+    #echo "$path"
+        if grep "ArrayList" $path; then
+            cat $path >> /home/zergi4/bashLesson/task4/rezult.txt
+        fi
+done
+
+
+Task5
+Вывести содержимое каталога /etc (каждая строка с полным путем) затем заменить первые вхождения ‘/’ на “C:\”, остальные на ‘\’
+
+#!/bin/bash
+mkdir /home/zergi4/bashLesson/task5/
+find /etc -type f > /home/zergi4/bashLesson/task5/list.txt
+sed 's/\//\\/g' /home/zergi4/bashLesson/task5/list.txt > /home/zergi4/bashLesson/task5/list2.txt
+#cat /home/zergi4/bashLesson/task5/list.txt | sed 's/\//\\/g' > /home/zergi4/bashLesson/task5/list2.txt
+#sed 's/\\/C:\\/' /home/zergi4/bashLesson/task5/list2.txt > /home/zergi4/bashLesson/task5/result.txt
+cat /home/zergi4/bashLesson/task5/list2.txt | sed 's/\\/C:\\/' > /home/zergi4/bashLesson/task5/result.txt
+
+
+
+

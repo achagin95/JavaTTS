@@ -1,0 +1,143 @@
+
+SSH
+
+Запустить две виртуальные машины, созданные ранее (будем называть их WORKSTATION и SERVER), зайти по ssh из WORKSTATION на SERVER. Сгенерировать пару ключей и настроить по ним доступ. Приватный ключ защитить паролем. После настройки доступа по ключам отключите доступ по паролю.
+Эту часть задания можно считать выполненной, если у вас настроен доступ только по ключам.
+
+sudo apt-get update
+sudo apt-get install openssh-server
+sudo apt-get install openssh-client
+
+ssh zergi4@192.168.56.107
+exit
+
+ssh-keygen
+ssh-copy-id zergi4@192.168.56.107
+chmod 700 .ssh
+chmod 600 .ssh/*
+ssh 'zergi4@192.168.56.107'
+cd .ssh
+chmod 600 authorized_keys
+sudo nano /etc/ssh/sshd_config
+PasswordAuthentification no
+sudo service ssh restart
+exti
+
+
+Установка сервиса на удаленной машине
+
+Установить на сервере java. Скопировать на SERVER приложение webHelloWorld (jar файл) и запустить. Выполнить в двух вариантах, с помощью команды screen и в виде службы systemd. Запустить journalctl для просмотра логов.
+Эту часть задания можно считать выполненной, если по адресу http://IP_сервера:4567/hello в браузере придет ответ, а в логах journalctl будет информация о запросах
+
+cd /opt && mkdir java && cd /java
+sudo wget https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz
+*т.к. настроил интеграцию копировть-вставить между ОС и ВМ, решил не делать короткую ссылку
+sudo tar -xzvf openjdk-14.0.2_linux-x64_bin.tar.gz
+su -
+nano /etc/profile
+в конце файла установить переменные
+exit
+sudo reboot
+ssh zergi4@192.168.56.107
+java -version
+
+cd /opt && mkdir maven && cd maven && sudo wget https://clck.ru/Qkmz4
+ls
+sudo tar -xzvf Qkmz4
+ls
+sudo mv apache-maven-3.6.3 maven
+su -
+nano /etc/profile.d/maven.sh
+устанавливаем переменные
+reboot
+ssh zergi4@192.168.56.107
+mvn -version
+
+scp WebHelloWorld.tar.gz zergi4@192.168.56.107:/home/zergi4/webTest
+*почему-то не получилось, работая на сервере подтянуть файл с раочей машины,так что сделал наоборот
+*команду вводил такую: scp zergi4@192.168.56.106:/home/zergi4/Загрузки/WebHelloWorld.tar.gz/
+
+1 Screen
+
+sudo apt install screen
+screen -r
+cd /webTest/WebHelloWorld
+mvn package
+java -jar ./target/WebHelloWorld.jar
+*проверил работу сайта (работает)
+Ctrl+a c *создал новое окно скрин
+Ctrl+a 1
+sudo journalctl -f
+*все работает, информация о запросах есть
+Ctrl+c
+Ctrl+a 0
+Ctrl+c *закрыл все работающие процессы
+
+2 Systemd
+sudo mkdir /opt/HelloWorldServer
+sudo cp /home/zergi4/webTest/WebHelloWorld/target/WebHelloWorld.jar /opt/HelloWorldServer/
+sudo nano /etc/systemd/system/helloworld.service
+*настроил файл
+sudo systemctl daemon-reload
+sudo systemctl enable helloworld.service
+sudo systemctl status helloworld.service
+sudo systemctl start helloworld.service
+sudo systemctl status helloworld.service
+sudo journalctl -u helloworld
+sudo systemctl stop helloworld.service
+sudo systemctl disable helloworld.service
+
+Сетевые утилиты.
+
+Запустить WebHelloWorld и проанализировать запросы и ответы с помощью ngrep.
+Установить web сервер nginx, создать простую страницу, содержащую изображение, get и post формы,  файл для скачивания, форму file upload, установку cookie (например, средствами JS). Делать обработку этих действий не нужно. Цель задания - проанализировать как  выглядят запросы и ответы в протоколе HTTP.
+Эту часть задания можно считать выполненной, если вы проанализируете запросы и ответы с помощью ngrep, и выложите ответ в документе репозитория. Отчет в формате: настроил приложение, запустил команду, в консоли вижу следующее (скопировать самую информативную часть вывода из консоли) из этого можно сделать такой-то вывод...
+Дополнительно по желанию можно выполнить это задание с помощью tshark.
+
+sudo ngrep -d any -W byline port 4567
+*получил следующее:
+
+interface: any
+filter: ( port 4567 ) and (ip || ip6)
+####
+T 192.168.56.106:60996 -> 192.168.56.107:4567 [AP] #4
+GET /hello HTTP/1.1.
+Host: 192.168.56.107:4567.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0.
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8.
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3.
+Accept-Encoding: gzip, deflate.
+Connection: keep-alive.
+Upgrade-Insecure-Requests: 1.
+Cache-Control: max-age=0.
+.
+
+##
+T 192.168.56.107:4567 -> 192.168.56.106:60996 [AP] #6
+HTTP/1.1 200 OK.
+Date: Wed, 23 Sep 2020 09:07:16 GMT.
+Content-Type: text/html;charset=utf-8.
+Transfer-Encoding: chunked.
+Server: Jetty(9.4.z-SNAPSHOT).
+.
+B.
+Hello World
+#
+T 192.168.56.107:4567 -> 192.168.56.106:60996 [AP] #7
+.
+0.
+.
+
+*настроил сервер nginx
+$ sudo ngrep -d any -W byline port 8081
+*результат выложил в файл nginx_analysis
+
+Установить на сервере MySql или PostgreSQL. На машине WORKSTATION запустить графический клиент (MySql Workbench или DBeaver) и проверить доступ. При работе с виртуальной машиной клиент можно запускать либо на базовой системе либо на виртуалке через ssh -X
+Из Windows можно воспользоваться xming
+
+
+
+
+
+
+
